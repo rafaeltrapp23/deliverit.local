@@ -3,11 +3,12 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Collections\Relatorios\CorredorResultadoCollection;
+use App\Http\Collections\Relatorios\CorredorResultadoIdadeCollection;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CorredorResultadoRequest;
 use App\Http\Resources\CorredorResultadoResource;
 use App\Models\CorredorProva;
-use App\Models\CorredorResultado;
+use App\Models\ViewCorredorResultado;
 use App\Services\CorredorResultadoService;
 use App\Traits\ResponseTrait;
 use Illuminate\Http\Request;
@@ -107,7 +108,7 @@ class CorredorResultadosController extends Controller
     public function rankingResultados(Request $request)
     {
         try {
-            $corredorResultado = new CorredorResultado();
+            $corredorResultado = new ViewCorredorResultado();
             $relatorio  = $corredorResultado->rankingCorredores();
 
             return $this->successResponse([
@@ -126,12 +127,12 @@ class CorredorResultadosController extends Controller
     public function rankingResultadosIdade(Request $request)
     {
         try {
-            $corredorResultado = new CorredorResultado();
-            $relatorio  = $corredorResultado->rankingCorredores();
+            $corredorResultado = new ViewCorredorResultado();
+            $relatorio  = $corredorResultado->rankingCorredoresIdade();
 
             return $this->successResponse([
                 'success' => true,
-                'data'    => new CorredorResultadoCollection($relatorio)
+                'data'    => new CorredorResultadoIdadeCollection($relatorio)
             ], 200);
         } catch (ApiException $e) {
             return $this->errorResponse($e->getMessage(), 500);

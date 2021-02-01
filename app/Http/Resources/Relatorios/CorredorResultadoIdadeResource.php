@@ -4,7 +4,7 @@ namespace App\Http\Resources\Relatorios;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class CorredorResultadoResource extends JsonResource
+class CorredorResultadoIdadeResource extends JsonResource
 {
     /**
      * Transform the resource collection into an array.
@@ -15,6 +15,7 @@ class CorredorResultadoResource extends JsonResource
     public function toArray($request)
     {
         return [
+            'faixa'             => $this->faixas,
             'prova_id'          => $this->prova_id,
             'tipo_prova_nome'   => $this->tipo_prova_nome,
             'corredor_id'       => $this->corredor_id,
