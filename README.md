@@ -1,22 +1,22 @@
-Documentação
+<b>Documentação</b>
 
 documentacao/index.html
 
-host: 
+<b>host: </b>
 
 http://localhost:8090/api
 
 
-Docker:
-Rodar comando:
+<b>Docker:
+Rodar comando:</b>
 
 docker-compose up -d --build
 
-Acessar container docker para rodar os migrations:
+<b>Acessar container docker para rodar os migrations:</b>
 
 docker exec -it php73-php-fpm-deliverit bash
 
-Rodar os Migrations do Laravel:
+<b>Rodar os Migrations do Laravel:</b>
 
 php artisan migrate
 
