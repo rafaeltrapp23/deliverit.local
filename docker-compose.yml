@@ -1,0 +1,53 @@
+version: "3.1"
+services:
+
+  webserver:
+    image: nginx:alpine
+    container_name: php73-webserver-deliverit
+    working_dir: /application
+    volumes:
+      - .:/application
+      - ./phpdocker/nginx/nginx.conf:/etc/nginx/conf.d/default.conf
+    environment:
+      - TZ=America/Sao_Paulo
+    ports:
+      - "443:443"
+      - "3000:3001"
+      - "8090:80"
+    networks:
+      - "networks-php-general"
+    depends_on:
+      - "php-fpm"
+
+  php-fpm:
+    build: phpdocker/php-fpm
+    container_name: php73-php-fpm-deliverit
+    working_dir: /application
+    volumes:
+      - .:/application
+    environment:
+      - COMPOSER_MEMORY_LIMIT=-1
+      - MEMORY_LIMIT=-1
+    links:
+      - mysql
+    networks:
+      - "networks-php-general"
+  mysql:
+    image: mysql:5.7
+    container_name: mysql-php-general
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql:/var/lib/mysql/
+    environment:
+      MYSQL_DATABASE: 'deliverit'
+      MYSQL_USER: 'root'
+      MYSQL_PASSWORD: '@mysql'
+      MYSQL_ROOT_PASSWORD: '@mysql123#'
+    networks:
+      - "networks-php-general"
+volumes:
+  mysql:
+networks:
+  networks-php-general:
+    driver: "bridge"
